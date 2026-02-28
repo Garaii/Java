@@ -1,4 +1,4 @@
- 🐝 Bee vs Hornets – Java OOP Game
+# 🐝 Bee vs Hornets – Java OOP Game
 
 A turn-based strategy game built in **Java** using object-oriented programming principles.
 Bees defend their hive against invading hornets along a connected tile path.
