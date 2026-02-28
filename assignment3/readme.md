@@ -1,69 +1,66 @@
-QuadTree Block Game
-Overview
+# QuadTree Block Game
 
-This project is a visual strategy game built using a quad-tree data structure. The game board is made of recursively defined square blocks. Each block is either a solid color or subdivided into four smaller blocks.
+## Overview
 
-Players can modify the board by rotating, reflecting, or smashing blocks in order to maximize their score.
+This project is a visual strategy game built using a quad-tree data structure. The game board is composed of recursively defined square blocks. Each block is either a solid color or subdivided into four equal sub-blocks.
 
-The project was adapted from an assignment originally created by Diane Horton and David Liu (University of Toronto).
+Players manipulate the board by rotating, reflecting, or smashing blocks in order to maximize their score.
 
-Data Structure
+This project was adapted from an assignment originally created by Diane Horton and David Liu (University of Toronto).
+
+---
+
+## Data Structure
 
 The board is represented as a quad-tree:
 
-Each node has either 0 or 4 children.
+- Each node has either **0 or 4 children**
+- The top-level block is at level 0
+- Each subdivision increases the level by 1
+- The board has a configurable maximum depth
+- Child blocks always have half the size of their parent and correctly updated coordinates
 
-The top-level block is at level 0.
+Maintaining these structural invariants was a key part of the implementation.
 
-Each subdivision increases the level by 1.
+---
 
-The board has a maximum depth.
+## Main Features
 
-Child blocks always have half the size of their parent and correct updated coordinates.
+### Random Board Generation
+Blocks are generated recursively using a probability function based on the block’s level.
 
-Maintaining these invariants was an important part of the implementation.
+### `updateSizeAndPosition(int size, int xCoord, int yCoord)`
+Recursively assigns size and coordinates to a block and all of its descendants while preserving invariants.
 
-Main Features
-Board Generation
+### `flatten()`
+Converts the quad-tree into a 2D `Color[][]` array of unit cells. This simplifies scoring calculations.
 
-Blocks are generated recursively using a random process. A block may subdivide depending on its level and a probability function.
-
-updateSizeAndPosition
-
-Recursively assigns size and coordinates to a block and all of its children while ensuring the structure remains valid.
-
-flatten
-
-Converts the quad-tree into a 2D Color[][] array representing unit cells. This makes scoring much easier.
-
-Transformations
-
-rotate
-
-reflect
-
-smash
+### Transformations
+- `rotate(int direction)`
+- `reflect(int direction)`
+- `smash()`
 
 All transformations correctly propagate through the tree and maintain structural consistency.
 
-Scoring
+---
 
-Two scoring goals are implemented:
+## Scoring System
 
-Perimeter Goal: Counts unit cells of a target color on the border (corners count double).
+### Perimeter Goal
+Counts unit cells of a target color on the outer border of the board. Corner cells count double.
 
-Blob Goal: Finds the largest orthogonally connected group of a target color using a recursive flood-fill approach.
+### Blob Goal
+Finds the largest orthogonally connected group of a target color using a recursive flood-fill algorithm.
 
 Large blocks count as the number of unit cells they would contain at maximum depth.
 
-What I Learned
+---
 
-Implementing and maintaining recursive data structures
+## Concepts Practiced
 
-Applying recursion for traversal and transformations
-
-Converting tree structures into 2D representations
-
-Designing algorithms for connected components
-
-Debugging complex recursive behavior
+- Recursive data structures (quad-trees)
+- Tree traversal and structural updates
+- Recursion for transformations and scoring
+- 2D array representation of hierarchical data
+- Connected component (flood-fill) algorithms
+- Maintaining data structure invariants
